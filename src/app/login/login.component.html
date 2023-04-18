@@ -1,0 +1,15 @@
+<form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+  <label for="username">Username: </label>
+  <input id="username" type="text" formControlName="username" />
+  <label for="password">Password: </label>
+  <input id="password" type="password" formControlName="password" />
+  <button
+    type="submit"
+    class="brutal-submit-button shadowed-box"
+    [disabled]="!credentialsForm.valid"
+  >
+    Submit
+  </button>
+
+  <a routerLink="/register" ariaCurrentWhenActive="page">Register instead.</a>
+</form>

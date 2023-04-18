@@ -1,1 +1,218 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Martel+Sans:wght@700&display=swap");
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding-bottom: 50px;
+}
+
+.shadowed-box {
+  box-shadow: 6px 6px black;
+  border: 3px solid black;
+}
+
+.brutal-input {
+  width: 100%;
+  border: 3px solid black;
+}
+
+.brutal-input:focus {
+  outline: none;
+  border: 3px solid #2032ea;
+}
+
+.brutal-input > button {
+  border: 3px solid black;
+  background-color: #2032ea;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.brutal-form-field {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.brutal-error {
+  max-width: 100%;
+  color: red;
+  font-size: small;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.brutal-submit-button {
+  background-color: #2032ea;
+  color: white;
+  padding: 4px;
+  /* border: 3px solid black; */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  margin-top: 10px;
+  transition: background-color 0.4s;
+}
+
+.brutal-submit-button:disabled {
+  transition: background-color 0.4s;
+  background-color: gray;
+}
+
+.ng-invalid:not(form, #rule-holder, input[type="file"]) {
+  border: 3px solid red;
+}
+
+.ng-untouched:not(form, #rule-holder, input[type="file"]) {
+  border: 3px solid grey;
+}
+
+.ng-valid:not(form, #rule-holder, input[type="file"]) {
+  border: 3px solid black;
+}
+
+.ng-submitted:not(form, #rule-holder, input[type="file"]) {
+  border: none;
+}
+
+.brutal-link {
+  margin-top: 10px;
+  color: blue;
+  text-decoration: none;
+}
+
+.tab-container ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+}
+
+.centered-h {
+  padding-top: 50px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+}
+
+.tab {
+  padding: 5px;
+  /* border: 3px solid black; */
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  padding: auto;
+  cursor: pointer;
+  transition: color 0.4s, background-color 0.4s;
+  font-weight: bold;
+}
+
+.tab-inactive {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  background-color: grey;
+  transition: color 0.4s, background-color 0.4s;
+  padding: 8px;
+}
+
+input[type="file"]::file-selector-button {
+  color: black;
+  font-size: 1em;
+  background: #53ef48;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.tab-active {
+  background-color: #2032ea;
+  color: white;
+  border: 3px solid black;
+  transition: color 0.4s, background-color 0.4s;
+}
+
+.icon {
+  width: 15px;
+  cursor: pointer;
+}
+
+.nav-container {
+  background-color: #ffcc00;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 3px solid black;
+  position: fixed;
+  z-index: 5;
+  display: flex;
+  padding: 5px;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.active {
+  color: white;
+}
+
+.content-container {
+  padding-top: 100px;
+}
+
+.nav-href {
+  text-decoration: none;
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.nav-href:hover {
+  background-color: #ffe785;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+li {
+  padding: 5px;
+}
+
+.profile-container {
+  padding: 5px;
+}
+
+.error-container {
+  color: red;
+  font-size: smaller;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}

@@ -1,0 +1,105 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <label for="username">Username: </label>
+  <input id="username" type="text" formControlName="username" />
+  <div
+    class="error-container"
+    *ngIf="username.invalid && (username.dirty || username.touched)"
+  >
+    <div *ngIf="username.errors?.['required']">Username is required.</div>
+    <div *ngIf="username.errors?.['pattern']">
+      Username must be between 4 and 20 alphanumeric characters.
+    </div>
+  </div>
+
+  <label for="password">Password: </label>
+  <input id="password" type="password" formControlName="password" />
+  <div
+    class="error-container"
+    *ngIf="password.invalid && (password.dirty || password.touched)"
+  >
+    <div *ngIf="password.errors?.['minlength']">Password too short.</div>
+    <div *ngIf="password.errors?.['maxlength']">Password too long.</div>
+  </div>
+
+  <label for="name">Name: </label>
+  <input id="name" type="text" formControlName="name" />
+  <div
+    class="error-container"
+    *ngIf="name.invalid && (name.dirty || name.touched)"
+  >
+    <div *ngIf="name.errors?.['maxlength']">Name too long.</div>
+    <div *ngIf="name.errors?.['required']">Name is required.</div>
+  </div>
+
+  <label for="lastname">Lastname: </label>
+  <input id="lastname" type="text" formControlName="lastname" />
+  <div
+    class="error-container"
+    *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+  >
+    <div *ngIf="lastname.errors?.['pattern']">Lastname too long.</div>
+    <div *ngIf="lastname.errors?.['required']">Lastname is required.</div>
+  </div>
+
+  <label for="address">Address: </label>
+  <input id="address" type="text" formControlName="address" />
+  <div
+    class="error-container"
+    *ngIf="address.invalid && (address.dirty || address.touched)"
+  >
+    <div *ngIf="address.errors?.['pattern']">
+      Must be a valid address address.
+    </div>
+  </div>
+
+  <label for="jmbg">jmbg: </label>
+  <input id="jmbg" type="text" formControlName="jmbg" />
+  <div
+    class="error-container"
+    *ngIf="jmbg.invalid && (jmbg.dirty || jmbg.touched)"
+  >
+    <div *ngIf="jmbg.errors?.['pattern']">JMBG must be 13 digits long.</div>
+    <div *ngIf="jmbg.errors?.['required']">JMBG is required.</div>
+  </div>
+
+  <label for="phone">Phone: </label>
+  <input id="phone" type="phone" formControlName="phone" />
+  <div
+    class="error-container"
+    *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+  >
+    <div *ngIf="phone.errors?.['pattern']">Must be a valid phone number.</div>
+  </div>
+
+  <label for="email">Email: </label>
+  <input id="email" type="email" formControlName="email" />
+  <div
+    class="error-container"
+    *ngIf="email.invalid && (email.dirty || email.touched)"
+  >
+    <div *ngIf="email.errors?.['pattern']">Must be a valid email address.</div>
+  </div>
+
+  <label for="sex">Sex: </label>
+  <select id="sex" formControlName="sex">
+    <option value="MALE">Male</option>
+    <option value="FEMALE">Female</option>
+  </select>
+  <div
+    class="error-container"
+    *ngIf="sex.invalid && (sex.dirty || sex.touched)"
+  >
+    <div *ngIf="sex.errors?.['sex']">
+      At least one option should be selected
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="brutal-submit-button shadowed-box"
+    [disabled]="!registrationForm.valid"
+  >
+    Submit
+  </button>
+  <a routerLink="/login" ariaCurrentWhenActive="page">Login instead.</a>
+</form>

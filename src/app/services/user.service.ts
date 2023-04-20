@@ -2,24 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Credentials } from '../model/credentials';
+import { User } from '../model/user';
+import { JWTResponse } from './auth-service.service';
 import { map } from 'rxjs/operators';
-
-export interface JWTResponse {
-  jwt: string;
-}
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
-  login(credentials: Credentials): Observable<string> {
+  register(user: User): Observable<string> {
     let url = new URL(environment.aprApiURL);
-    url.pathname = 'api/auth/login';
+    url.pathname = 'api/user/';
+    console.log(`posting to ${url.toString()}`);
     return this.http
-      .post<JWTResponse>(url.toString(), credentials)
+      .post<JWTResponse>(url.toString(), user)
       .pipe(map((jr) => jr.jwt));
   }
 }

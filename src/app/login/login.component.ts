@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Credentials } from '../model/credentials';
 import { AuthService } from '../services/auth-service.service';
 
@@ -10,7 +11,11 @@ import { AuthService } from '../services/auth-service.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private route: ActivatedRoute) {
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
+  ) {
     this.serviceId = null;
     this.redirectUrl = null;
   }
@@ -41,13 +46,18 @@ export class LoginComponent implements OnInit {
       service: this.redirectUrl ? this.serviceId : null,
     };
 
-    this.authService.login(credentials).subscribe((result) => {
-      localStorage.setItem('jwt', result);
-      if (this.redirectUrl !== null) {
-        let clientUrl = new URL(this.redirectUrl);
-        clientUrl.searchParams.append('token', result);
-        window.location.href = clientUrl.toString();
-      }
+    this.authService.login(credentials).subscribe({
+      next: (result) => {
+        localStorage.setItem('jwt', result);
+        if (this.redirectUrl !== null) {
+          let clientUrl = new URL(this.redirectUrl);
+          clientUrl.searchParams.append('token', result);
+          window.location.href = clientUrl.toString();
+        }
+      },
+      error: () => {
+        this.toastr.error('Invalid credentials');
+      },
     });
   }
 }

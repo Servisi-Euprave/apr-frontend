@@ -10,8 +10,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from '../model/user';
-import { UserService } from '../services/user.service';
+import { Company, Delatnost, NSTJ } from '../model/company';
+import { CompanyService } from '../services/company.service';
 
 @Component({
   selector: 'app-register',
@@ -20,32 +20,37 @@ import { UserService } from '../services/user.service';
 })
 export class RegisterComponent {
   registrationForm = new FormGroup({
+    jmbg: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^\d{13}$/),
+    ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(12),
       Validators.maxLength(72),
     ]),
-    username: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-zA-Z0-9]{4,20}'),
-    ]),
-    phone: new FormControl('', Validators.pattern(/^\+?[1-9]\d{1,14}$/)),
-    email: new FormControl('', Validators.email),
-    sex: new FormControl('', sexValidator()),
-    address: new FormControl('', Validators.maxLength(100)),
-    name: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-    lastname: new FormControl('', [
+    naziv: new FormControl('', [
       Validators.required,
       Validators.maxLength(100),
     ]),
-    jmbg: new FormControl('', [
+    address: new FormControl('', [
       Validators.required,
-      Validators.pattern(/^\d{13}$/),
+      Validators.maxLength(100),
     ]),
+    mesto: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(100),
+    ]),
+    postanskiBroj: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+    ]),
+    delatnost: new FormControl<Delatnost | null>(null, Validators.required),
+    sediste: new FormControl<string>('', Validators.required),
   });
 
   constructor(
-    private userService: UserService,
+    private companyService: CompanyService,
     private route: ActivatedRoute,
     private toastr: ToastrService
   ) {
@@ -53,36 +58,18 @@ export class RegisterComponent {
     this.redirectUrl = null;
   }
 
-  get name() {
-    return this.registrationForm.controls.name;
-  }
-  get lastname() {
-    return this.registrationForm.controls.lastname;
-  }
-  get email() {
-    return this.registrationForm.controls.email;
-  }
-  get address() {
-    return this.registrationForm.controls.address;
-  }
-  get phone() {
-    return this.registrationForm.controls.phone;
-  }
-  get jmbg() {
-    return this.registrationForm.controls.jmbg;
-  }
-  get password() {
-    return this.registrationForm.controls.password;
-  }
-  get username() {
-    return this.registrationForm.controls.username;
-  }
-  get sex() {
-    return this.registrationForm.controls.sex;
-  }
-
   serviceId: string | null;
   redirectUrl: string | null;
+
+  private _delatnostiKeys: Delatnost[] = Object.values(Delatnost);
+  public get delatnostiKeys(): Delatnost[] {
+    return this._delatnostiKeys;
+  }
+
+  private _validNstj: NSTJ[] = [];
+  public get validNstj(): NSTJ[] {
+    return this._validNstj;
+  }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(
@@ -91,22 +78,30 @@ export class RegisterComponent {
     this.route.queryParamMap.subscribe(
       (qParams) => (this.redirectUrl = qParams.get('redirect_url'))
     );
+    this.companyService.findAllNstj().subscribe({
+      next: (result) => {
+        this._validNstj = result;
+      },
+    });
   }
 
   onSubmit() {
-    let user: User = {
-      username: this.registrationForm.value.username ?? '',
-      password: this.registrationForm.value.password ?? '',
-      phone: this.registrationForm.value.phone ?? '',
-      email: this.registrationForm.value.email ?? '',
-      sex: this.registrationForm.value.sex ?? '',
-      address: this.registrationForm.value.address ?? '',
-      name: this.registrationForm.value.name ?? '',
-      lastname: this.registrationForm.value.lastname ?? '',
-      jmbg: this.registrationForm.value.jmbg ?? '',
+    let company: Company = {
+      password: this.registrationForm.value.password!!,
+      vlasnik: this.registrationForm.value.jmbg!!,
+      pib: 0,
+      naziv: this.registrationForm.value.naziv ?? '',
+      adresaSedista: this.registrationForm.value.address ?? '',
+      mesto: this.registrationForm.value.mesto ?? '',
+      postanskiBroj: this.registrationForm.value.postanskiBroj ?? '',
+      delatnost: this.registrationForm.value.delatnost!!,
+      sediste: {
+        oznaka: this.registrationForm.value.sediste!!,
+        naziv: '',
+      },
     };
 
-    this.userService.register(user).subscribe({
+    this.companyService.register(company).subscribe({
       next: (result) => {
         this.toastr.info(
           'You have been successfully registered. Please log in to access your account'
@@ -122,15 +117,47 @@ export class RegisterComponent {
         if (e instanceof HttpErrorResponse) {
           e as HttpErrorResponse;
           if (e.status === 0) {
-            console.error(e);
             this.toastr.error('An error occured in the browser.');
             return;
           }
+          if (e.status >= 400 && e.status < 500) {
+            e.statusText;
+            console.log(e);
+            this.toastr.error(e.message);
+            return;
+          }
+          this.toastr.error('We have made an oopsie-woopsie');
+          return;
         }
         console.error(e);
-        this.toastr.error('Username or JMBG already taken.');
+        this.toastr.error('Catastrophic failure.');
       },
     });
+  }
+
+  get naziv() {
+    return this.registrationForm.controls.naziv;
+  }
+  get delatnost() {
+    return this.registrationForm.controls.delatnost;
+  }
+  get mesto() {
+    return this.registrationForm.controls.mesto;
+  }
+  get address() {
+    return this.registrationForm.controls.address;
+  }
+  get sediste() {
+    return this.registrationForm.controls.sediste;
+  }
+  get jmbg() {
+    return this.registrationForm.controls.jmbg;
+  }
+  get password() {
+    return this.registrationForm.controls.password;
+  }
+  get postanskiBroj() {
+    return this.registrationForm.controls.postanskiBroj;
   }
 }
 

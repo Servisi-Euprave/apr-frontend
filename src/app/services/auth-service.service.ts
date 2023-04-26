@@ -12,7 +12,7 @@ export interface JWTResponse {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class HttpAuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: Credentials): Observable<string> {

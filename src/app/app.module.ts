@@ -9,9 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { CompaniesComponent } from './companies/companies.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    CompaniesComponent,
+    ProfileComponent,
+  ],
   imports: [
     BrowserAnimationsModule,
     ToastrModule.forRoot(),

@@ -1,5 +1,5 @@
 export interface Credentials {
-  username: string;
+  pib: string;
   password: string;
   service: string | null;
 }

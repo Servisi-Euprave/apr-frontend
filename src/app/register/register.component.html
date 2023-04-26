@@ -1,14 +1,12 @@
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-  <label for="username">Username: </label>
-  <input id="username" type="text" formControlName="username" />
+  <label for="jmbg">Founder's JMBG: </label>
+  <input id="jmbg" type="text" formControlName="jmbg" />
   <div
     class="error-container"
-    *ngIf="username.invalid && (username.dirty || username.touched)"
+    *ngIf="jmbg.invalid && (jmbg.dirty || jmbg.touched)"
   >
-    <div *ngIf="username.errors?.['required']">Username is required.</div>
-    <div *ngIf="username.errors?.['pattern']">
-      Username must be between 4 and 20 alphanumeric characters.
-    </div>
+    <div *ngIf="jmbg.errors?.['pattern']">JMBG must be 13 digits long.</div>
+    <div *ngIf="jmbg.errors?.['required']">JMBG is required.</div>
   </div>
 
   <label for="password">Password: </label>
@@ -21,76 +19,79 @@
     <div *ngIf="password.errors?.['maxlength']">Password too long.</div>
   </div>
 
-  <label for="name">Name: </label>
-  <input id="name" type="text" formControlName="name" />
+  <label for="naziv">Naziv: </label>
+  <input id="naziv" type="text" formControlName="naziv" />
   <div
     class="error-container"
-    *ngIf="name.invalid && (name.dirty || name.touched)"
+    *ngIf="naziv.invalid && (naziv.dirty || naziv.touched)"
   >
-    <div *ngIf="name.errors?.['maxlength']">Name too long.</div>
-    <div *ngIf="name.errors?.['required']">Name is required.</div>
+    <div *ngIf="naziv.errors?.['required']">Naziv is required.</div>
+    <div *ngIf="naziv.errors?.['maxlength']">Naziv too long.</div>
   </div>
 
-  <label for="lastname">Lastname: </label>
-  <input id="lastname" type="text" formControlName="lastname" />
+  <label for="sediste">Sedište: </label>
+  <select id="sediste" formControlName="sediste">
+    <option selected value="">-- select sedište --</option>
+    <option *ngFor="let sediste of validNstj" [value]="sediste.oznaka">
+      {{ sediste.oznaka + " " + sediste.naziv }}
+    </option>
+  </select>
   <div
     class="error-container"
-    *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+    *ngIf="sediste.invalid && (sediste.dirty || sediste.touched)"
   >
-    <div *ngIf="lastname.errors?.['pattern']">Lastname too long.</div>
-    <div *ngIf="lastname.errors?.['required']">Lastname is required.</div>
+    <div *ngIf="sediste.errors?.['required']">You must select one sediste</div>
   </div>
 
-  <label for="address">Address: </label>
+  <label for="address">Adresa sedišta: </label>
   <input id="address" type="text" formControlName="address" />
   <div
     class="error-container"
     *ngIf="address.invalid && (address.dirty || address.touched)"
   >
-    <div *ngIf="address.errors?.['pattern']">
-      Must be a valid address address.
+    <div *ngIf="address.errors?.['required']">address is required.</div>
+    <div *ngIf="address.errors?.['maxlength']">address too long.</div>
+  </div>
+
+  <label for="mesto">Mesto sedišta: </label>
+  <input id="mesto" type="text" formControlName="mesto" />
+  <div
+    class="error-container"
+    *ngIf="mesto.invalid && (mesto.dirty || mesto.touched)"
+  >
+    <div *ngIf="mesto.errors?.['required']">Mesto is required.</div>
+    <div *ngIf="mesto.errors?.['maxlength']">Mesto too long.</div>
+  </div>
+
+  <label for="postanskiBroj">Poštanski broj sedišta:</label>
+  <input id="postanskiBroj" type="text" formControlName="postanskiBroj" />
+  <div
+    class="error-container"
+    *ngIf="
+      postanskiBroj.invalid && (postanskiBroj.dirty || postanskiBroj.touched)
+    "
+  >
+    <div *ngIf="postanskiBroj.errors?.['required']">
+      Poštanski broj is required.
+    </div>
+    <div *ngIf="postanskiBroj.errors?.['maxlength']">
+      Poštanski broj too long.
     </div>
   </div>
 
-  <label for="jmbg">jmbg: </label>
-  <input id="jmbg" type="text" formControlName="jmbg" />
-  <div
-    class="error-container"
-    *ngIf="jmbg.invalid && (jmbg.dirty || jmbg.touched)"
-  >
-    <div *ngIf="jmbg.errors?.['pattern']">JMBG must be 13 digits long.</div>
-    <div *ngIf="jmbg.errors?.['required']">JMBG is required.</div>
-  </div>
-
-  <label for="phone">Phone: </label>
-  <input id="phone" type="phone" formControlName="phone" />
-  <div
-    class="error-container"
-    *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-  >
-    <div *ngIf="phone.errors?.['pattern']">Must be a valid phone number.</div>
-  </div>
-
-  <label for="email">Email: </label>
-  <input id="email" type="email" formControlName="email" />
-  <div
-    class="error-container"
-    *ngIf="email.invalid && (email.dirty || email.touched)"
-  >
-    <div *ngIf="email.errors?.['pattern']">Must be a valid email address.</div>
-  </div>
-
-  <label for="sex">Sex: </label>
-  <select id="sex" formControlName="sex">
-    <option value="MALE">Male</option>
-    <option value="FEMALE">Female</option>
+  <label for="delatnost">Delatnost: </label>
+  <select id="delatnost" formControlName="delatnost">
+    <option selected value="null">-- select delatnost --</option>
+    <option *ngFor="let delatnost of delatnostiKeys" [value]="delatnost">
+      {{ delatnost }}
+    </option>
   </select>
   <div
     class="error-container"
-    *ngIf="sex.invalid && (sex.dirty || sex.touched)"
+    *ngIf="delatnost.invalid && (delatnost.dirty || delatnost.touched)"
   >
-    <div *ngIf="sex.errors?.['sex']">
-      At least one option should be selected
+    <div *ngIf="delatnost.errors?.['required']">
+      You must select one delatnost
     </div>
   </div>
 

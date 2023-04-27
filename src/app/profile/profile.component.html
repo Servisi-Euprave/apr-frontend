@@ -1,0 +1,24 @@
+<div id="profile-container">
+  <div class="rounded-shadowed-box" id="profile-box">
+    <div class="naziv">Naziv: {{ company?.naziv }}</div>
+    <div>PIB: {{ company?.pib }}</div>
+    <div>Vlasnik: {{ vlasnik?.name }}, {{ vlasnik?.lastname }}</div>
+    <div class="address">
+      Adresa:
+      {{ company?.adresaSedista }}, {{ company?.mesto }},
+      {{ company?.postanskiBroj }}, {{ company?.sediste?.oznaka }}
+      {{ company?.sediste?.naziv }}
+    </div>
+    <div class="address">
+      Delatnost:
+      {{ company?.delatnost }}
+    </div>
+    <button
+      id="likvidiraj-button"
+      class="brutal-danger-button shadowed-box"
+      type="button"
+    >
+      Likvidiraj preduzeće
+    </button>
+  </div>
+</div>

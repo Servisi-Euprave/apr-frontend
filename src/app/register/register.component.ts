@@ -88,7 +88,11 @@ export class RegisterComponent {
   onSubmit() {
     let company: Company = {
       password: this.registrationForm.value.password!!,
-      vlasnik: this.registrationForm.value.jmbg!!,
+      vlasnik: {
+        jmbg: this.registrationForm.value.jmbg!!,
+        name: '',
+        lastname: '',
+      },
       pib: 0,
       naziv: this.registrationForm.value.naziv ?? '',
       adresaSedista: this.registrationForm.value.address ?? '',

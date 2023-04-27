@@ -156,6 +156,23 @@ input[type="file"]::file-selector-button {
   transition: 100ms;
 }
 
+.brutal-danger-button {
+  color: white;
+  font-size: 1em;
+  font-weight: bold;
+  background: #fa1639;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  transition: 100ms;
+}
+
+.brutal-danger-button:active {
+  translate: 4px 4px;
+  box-shadow: 0px 0px black;
+  transition: 100ms;
+}
+
 .shadowed-box:active {
   translate: 4px 4px;
   box-shadow: 0px 0px black;
@@ -232,4 +249,10 @@ li {
 a {
   color: blue;
   text-decoration: none;
+}
+
+.rounded-shadowed-box {
+  box-shadow: 6px 6px black;
+  border: 3px solid black;
+  border-radius: 5px;
 }

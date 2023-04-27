@@ -1,0 +1,55 @@
+.formgrouper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+.formgrouper > label {
+  margin-left: 20px;
+}
+
+table {
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+thead {
+  border-bottom: 2px solid black;
+}
+
+th {
+  text-align: center;
+}
+td {
+  text-align: left;
+  padding: 5px 20px;
+}
+
+.ar {
+  text-align: right;
+}
+
+tbody tr::nth-child(even) {
+  background-color: #ff0000;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pages {
+  display: flex;
+  flex-direction: row;
+  font-weight: bolder;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+
+button {
+  padding: 5px 15px;
+  box-sizing: border-box;
+  margin: 7px;
+  transition: 200ms;
+}

@@ -1,0 +1,104 @@
+<form [formGroup]="filterOrderForm" (ngSubmit)="onSubmit()">
+  <div class="formgrouper">
+    <label for="asc">Order:</label>
+    <select id="asc" formControlName="asc">
+      <option selected [value]="true">Ascending</option>
+      <option [value]="false">Descending</option>
+    </select>
+
+    <label for="order">Order By:</label>
+    <select id="order" formControlName="order">
+      <option selected value="">-- select column --</option>
+      <option *ngFor="let name of colKeys" [value]="name">
+        {{ name }}
+      </option>
+    </select>
+
+    <label for="delatnost">Delatnost:</label>
+    <select id="delatnost" formControlName="delatnost">
+      <option selected value="">-- select delatnost --</option>
+      <option *ngFor="let name of delatnostiKeys" [value]="name">
+        {{ name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="formgrouper">
+    <label for="sediste">Oznaka sedista:</label>
+    <input id="sediste" type="text" formControlName="sediste" />
+    <label for="mesto">Mesto:</label>
+    <input id="mesto" type="text" formControlName="mesto" />
+  </div>
+
+  <div class="formgrouper">
+    <button
+      [disabled]="loading"
+      type="submit"
+      class="brutal-submit-button shadowed-box"
+      Submit
+    >
+      Sort and Filter
+    </button>
+    <button
+      type="button"
+      class="shadowed-box green-button"
+      (click)="resetFilters()"
+    >
+      Reset
+    </button>
+  </div>
+</form>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>PIB</th>
+        <th>Naziv</th>
+        <th>Vlasnik</th>
+        <th>Adresa sedišta</th>
+        <th>Mesto</th>
+        <th>Poštanski broj</th>
+        <th>Delatnost</th>
+        <th>Sedište</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of companies">
+        <td class="ar">{{ company.pib }}</td>
+        <td>{{ company.naziv }}</td>
+        <td>{{ company.vlasnik.jmbg }}</td>
+        <td>{{ company.adresaSedista }}</td>
+        <td>{{ company.mesto }}</td>
+        <td class="ar">{{ company.postanskiBroj }}</td>
+        <td>{{ company.delatnost }}</td>
+        <td>{{ company.sediste.oznaka + " " + company.sediste.naziv }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pages">
+    <button
+      class="brutal-submit-button shadowed-box"
+      type="button"
+      (click)="pageFirst()"
+      [disabled]="page <= 0"
+    >
+      &lt;&lt;
+    </button>
+    <button
+      class="brutal-submit-button shadowed-box"
+      type="button"
+      (click)="pageBack()"
+      [disabled]="page <= 0"
+    >
+      &lt;
+    </button>
+    <button
+      class="brutal-submit-button shadowed-box"
+      type="button"
+      (click)="pageNext()"
+    >
+      &gt;
+    </button>
+  </div>
+</div>

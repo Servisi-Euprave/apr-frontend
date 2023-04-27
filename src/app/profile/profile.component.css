@@ -1,0 +1,23 @@
+#profile-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.naziv {
+  font-weight: bold;
+  font-size: larger;
+}
+
+#profile-box {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 10px;
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+#likvidiraj-button {
+  align-self: center;
+  margin-top: 10px;
+}

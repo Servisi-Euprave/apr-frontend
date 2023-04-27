@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  aprApiURL: 'http://apr_backend:7887',
+  aprApiURL: 'http://localhost:7887',
 };

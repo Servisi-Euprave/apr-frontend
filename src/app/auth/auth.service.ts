@@ -4,6 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
+  getToken(): string | null {
+    return localStorage.getItem('jwt');
+  }
+
   isLoggedIn(): boolean {
     return localStorage.getItem('jwt') !== null;
   }

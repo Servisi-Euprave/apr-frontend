@@ -67,7 +67,7 @@
       <tr *ngFor="let company of companies">
         <td class="ar">{{ company.pib }}</td>
         <td>{{ company.naziv }}</td>
-        <td>{{ company.vlasnik.jmbg }}</td>
+        <td>{{ company.vlasnik.name }} {{ company.vlasnik.lastname }}</td>
         <td>{{ company.adresaSedista }}</td>
         <td>{{ company.mesto }}</td>
         <td class="ar">{{ company.postanskiBroj }}</td>

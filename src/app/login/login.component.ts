@@ -66,9 +66,11 @@ export class LoginComponent implements OnInit {
       next: (result) => {
         localStorage.setItem('jwt', result);
         this.toastr.success('Login successful.');
-        this.router.navigate(['']);
+        this.router.navigate(['profile']);
         if (this.redirectUrl !== null) {
-          this.ssoRedirect(result);
+          this.httpAuthServ.ssoLogin(this.serviceId).subscribe(() => {
+            this.ssoRedirect(result);
+          });
         }
       },
       error: () => {

@@ -33,7 +33,7 @@ export class HttpAuthService {
 
   login(credentials: Credentials): Observable<string> {
     let url = new URL(environment.aprApiURL);
-    url.pathname = 'api/auth/login';
+    url.pathname = 'api/auth/login/';
     return this.http
       .post<JWTResponse>(url.toString(), credentials)
       .pipe(map((jr) => jr.jwt));

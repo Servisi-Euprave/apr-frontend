@@ -1,0 +1,15 @@
+<div class="procurement-overview rounded-shadowed-box">
+  <div class="naziv">Naziv nabavke: {{ procurement?.procurement_name }}</div>
+  <div>PIB potražioca: {{procurement?.procuring_entity_pi_b }}</div>
+  <div>
+    <p>
+      Opis: {{procurement?.description}}
+    </p>
+  </div>
+  <div>
+    Početni datum: {{procurement?.start_date?.toLocaleDateString()}}
+  </div>
+  <div>
+    Završni datum: {{procurement?.end_date?.toLocaleDateString()}}
+  </div>
+</div>

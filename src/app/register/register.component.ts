@@ -164,11 +164,3 @@ export class RegisterComponent {
     return this.registrationForm.controls.postanskiBroj;
   }
 }
-
-export function sexValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    return ['MALE', 'FEMALE'].some((e) => e === control.value)
-      ? null
-      : { sex: { value: control.value } };
-  };
-}

@@ -1,5 +1,8 @@
 <div id="profile-container">
-  <div class="rounded-shadowed-box" id="profile-box">
+  <button id="logout-button" class="brutal-submit-button shadowed-box" type="button" (click)="logout()">
+    Logout
+  </button>
+  <div class="rounded-shadowed-box profile-box">
     <div class="naziv">Naziv: {{ company?.naziv }}</div>
     <div>PIB: {{ company?.pib }}</div>
     <div>Vlasnik: {{ vlasnik?.name }}, {{ vlasnik?.lastname }}</div>
@@ -13,12 +16,26 @@
       Delatnost:
       {{ company?.delatnost }}
     </div>
-    <button
-      id="likvidiraj-button"
-      class="brutal-danger-button shadowed-box"
-      type="button"
-    >
+    <div id="deletion-box" *ngIf="liquidationMode">
+      <label for="liquidate">
+        Da biste potvrdili likvidaciju ukucajte tekst "{{ confirmationText }}"
+      </label>
+      <input [formControl]="liquidateConfirmation" id="liquidate" type="text" />
+      <div class="error-container" *ngIf="
+          liquidateConfirmation.invalid &&
+          (liquidateConfirmation.dirty || liquidateConfirmation.touched)
+        ">
+        <div *ngIf="liquidateConfirmation.errors?.['confirmationText']">
+          Tekst se ne podudara
+        </div>
+      </div>
+    </div>
+    <button id="likvidiraj-button" class="brutal-danger-button shadowed-box" type="button" (click)="liquidate()">
       Likvidiraj preduzeće
     </button>
+  </div>
+  <h1>Nabavke</h1>
+  <div class="profile-box" *ngFor="let procurement of procurements">
+    <app-procurement-overview [procurement]="procurement"></app-procurement-overview>
   </div>
 </div>

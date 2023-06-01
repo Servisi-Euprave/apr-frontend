@@ -5,6 +5,11 @@ html,
 body {
   height: 100%;
 }
+
+button{
+  text-transform: uppercase;
+  font-weight: bold
+}
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -66,6 +71,7 @@ form {
   background-color: #2032ea;
   color: white;
   padding: 4px;
+  text-transform: uppercase;
   /* border: 3px solid black; */
   border-radius: 5px;
   cursor: pointer;
@@ -256,3 +262,22 @@ a {
   border: 3px solid black;
   border-radius: 5px;
 }
+
+.procurement-overview {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  padding: 10px;
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+h1 {
+  text-align: center;
+}
+
+.naziv {
+  font-weight: bold;
+  font-size: larger;
+}
+

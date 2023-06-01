@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth/auth.service';
 import { Company, Delatnost, NSTJ } from '../model/company';
 import { JWTResponse } from './auth-service.service';
 
@@ -14,7 +15,7 @@ export class CompanyService {
     url.pathname = `api/company/${principal}`;
     return this.http.get<Company>(url.toString());
   }
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authServ: AuthService) {}
 
   register(company: Company) {
     let url = new URL(environment.aprApiURL);
@@ -51,6 +52,16 @@ export class CompanyService {
     let url = new URL(environment.aprApiURL);
     url.pathname = 'api/nstj/';
     return this.http.get<NSTJ[]>(url.toString());
+  }
+
+  liquidate(): Observable<any> {
+    let principal = this.authServ.getPrincipal();
+    let headers = new HttpHeaders({
+      Authorization: `Bearer ${this.authServ.getToken()!!}`,
+    });
+    let url = new URL(environment.aprApiURL);
+    url.pathname = `api/company/${principal}`;
+    return this.http.delete<any>(url.toString(), { headers: headers });
   }
 }
 

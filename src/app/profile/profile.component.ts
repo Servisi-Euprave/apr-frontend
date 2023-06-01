@@ -21,6 +21,8 @@ import { JavneNabavkeService } from '../services/javne-nabavke.service';
 })
 export class ProfileComponent implements OnInit {
   logout() {
+    this.authService.deleteToken()
+    this.router.navigate(['login']);
   }
   private _procurements: Procurement[] = [];
   public get procurements(): Procurement[] {
